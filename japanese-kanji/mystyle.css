@@ -1,0 +1,25 @@
+body {
+    margin: 25px;
+    background-color: black;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: white;
+    font-size: 35px;
+    font-weight: normal;
+    margin-top: 5px;
+  }
+  
+  .wrapper {
+    text-align: center;
+}
+  
+  .kanji {   
+    align-self: right;
+    text-align: center;
+    position: static;
+    top: 50%;
+}
