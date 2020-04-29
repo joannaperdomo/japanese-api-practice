@@ -1,31 +1,29 @@
-// const API_URL = 'https://kanjiapi.dev/v1/';
-// const KANJI_EP = 'kanji/:id';
-
-// document.getElementById("kanji").addEventListener("click", imprimirKanji)
-
-// function imprimirKanji () {
-//     var url = `${API_URL}${KANJI_EP.replace(':id',id)}`
-//     document.write(response[Math.floor(Math.random() * response.length)])
-// }
-
-// function obtenerKanji (id) {
-//   var url = `${API_URL}${KANJI_EP.replace(':id',id)}`
-//   $.get(url, sayKanji)
-// }
-
-// var sayKanji = function (kanji) {
-//     // console.log(`There are ${kanji.length} in this grade. First kanji is: "${kanji[0]}"`)
-//     console.log(`${kanji}'s meaning is ${kanji.meaning}`)
-// }
 
 
-var settings = {
-  "url": "https://kanjiapi.dev/v1/kanji/grade-1",
-  "method": "GET",
-  "timeout": 0,
-};
+fetch('https://kanjiapi.dev/v1/kanji/grade-1').then(function (gradeKanjis) {
+	if (gradeKanjis.ok) {
+    var newKanji = gradeKanjis[Math.floor(Math.random() * gradeKanjis.length)]
+    return newKanji
+	} else {
+		return Promise.reject(response);
+	}
+}).then(function (kanji) {
 
-$.ajax(settings).done(function (response) {
-  console.log(`There are ${response.length} in this grade. First kanji is: "${response[0]}"`)
+	// Store the post data to a variable
+	post = kanji;
+
+	// Fetch another API
+	return fetch('https://kanjiapi.dev/v1/kanji/:id'.replace(':id', kanji))
+
+}).then(function (kanji) {
+	if (kanji.ok) {
+		return kanji.json();
+	} else {
+		return Promise.reject(kanji);
+	}
+}).then(function (kanjiData) {
+	console.log(post, kanjiData);
+}).catch(function (error) {
+	console.warn(error);
 });
 
